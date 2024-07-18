@@ -35,6 +35,10 @@
     overflow: clip;
 }
 
+.description:hover {
+    text-decoration: underline;
+}
+
 .container:hover .description {
     bottom: 0;
 }

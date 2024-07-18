@@ -16,7 +16,7 @@
       .then((response) => response.json())
       .then((json) => {
         document.getElementById('body').style.backgroundImage = 'url(\'' + json.url + '\')';
-        document.getElementById('description').innerHTML += json.explanation
+        document.getElementById('description').innerHTML += json.explanation;
         document.getElementById('title').innerHTML += json.title;
       });
 </script>
