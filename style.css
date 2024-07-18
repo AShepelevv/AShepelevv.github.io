@@ -14,8 +14,8 @@
 }
 
 .description {
-    padding: 16px;
-    width: calc(100% - 32px);
+    padding: 8px;
+    width: calc(100% - 16px);
     background: #000;
     opacity: 0.7;
     filter: alpha(opacity=30); /* IE lt 8 */
@@ -25,12 +25,14 @@
     -o-transition: 0.5s;  /* Opera 10.5–12.00 */
     transition: 0.5s;  /* Firefox 16+, Opera 12.50+ */
     position: absolute;
-    bottom: -100%;
+    bottom: -216px;
+    height: 100px;
     text-align: left;
     color: azure;
     font-family: 'Montserrat', sans-serif;
-    font-size: 14px;
+    font-size: 10px;
     font-weight: 200;
+    overflow: clip;
 }
 
 .container:hover .description {
@@ -38,8 +40,8 @@
 }
 
 .title {
-    padding-bottom: 8px;
+    padding-bottom: 4px;
     font-family: 'Montserrat', sans-serif;
-    font-size: 22px;
+    font-size: 18px;
     font-weight: 600;
 }
