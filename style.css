@@ -1,3 +1,13 @@
+@font-face {
+    font-family: "YS Bold";
+    src: url(https://github.com/dezmound/y.h.1/raw/master/assets/fonts/YS%20Text-Bold.ttf) format("truetype");
+}
+
+@font-face {
+    font-family: "YS light";
+    src: url(https://github.com/dezmound/y.h.1/raw/master/assets/fonts/YS%20Text-Light.ttf) format("truetype");
+}
+
 .body {
     background-position: center;
     background-size: cover;
@@ -29,7 +39,6 @@
     max-height: 100px;
     text-align: left;
     color: azure;
-    font-family: 'Montserrat', sans-serif;
 }
 
 .bottom-sheet:hover {
@@ -41,7 +50,7 @@
     white-space: nowrap;
     overflow: hidden;
     font-size: 10px;
-    font-weight: 200;
+    font-family: YS light, sans-serif;
 }
 
 .container:hover .bottom-sheet {
@@ -51,9 +60,8 @@
 
 .title {
     padding-bottom: 4px;
-    font-family: 'Montserrat', sans-serif;
+    font-family: YS Bold, sans-serif;
     font-size: 18px;
-    font-weight: 600;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
