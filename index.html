@@ -8,7 +8,9 @@
     const img = document.createElement("img");
     img.src = json.url;
     img.style.width = "100%";
-    document.getElementById("body").appendChild(img);
+    const body = document.getElementById("body");
+    body.appendChild(img);
+    body.style.margin = 0;
   });
 </script>
 </html>
