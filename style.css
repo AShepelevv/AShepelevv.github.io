@@ -8,9 +8,7 @@
     src: url(https://github.com/dezmound/y.h.1/raw/master/assets/fonts/YS%20Text-Light.ttf) format("truetype");
 }
 
-.body {
-    background-position: center;
-    background-size: cover;
+body {
     margin: 0;
 }
 
@@ -20,7 +18,8 @@
     float: left;
     width: 100vw;
     height: 100%;
-    padding: 0;
+    background-position: center;
+    background-size: cover;
 }
 
 .bottom-sheet {

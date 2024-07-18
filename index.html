@@ -3,8 +3,8 @@
   <link rel="stylesheet" href="style.css">
   <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
 </head>
-<body id="body" class="body">
-<a class="container" href="https://apod.nasa.gov/apod/" target="_blank">
+<body class="body">
+<a id="container" class="container" href="https://apod.nasa.gov/apod/" target="_blank">
   <div class="bottom-sheet">
     <div id="title" class="title"></div>
     <div id="description" class="description"></div>
@@ -16,7 +16,11 @@
   fetch('https://api.nasa.gov/planetary/apod?api_key=' + queryParams.get('api_key'))
       .then((response) => response.json())
       .then((json) => {
-        document.getElementById('body').style.backgroundImage = 'url(\'' + json.url + '\')';
+        if (json.media_type === 'image') {
+          document.getElementById('container').style.backgroundImage = 'url(\'' + json.url + '\')';
+        } else {
+          document.getElementById('container').innerHTML += '<iframe width="100%" height="100%" src="' + json.url + '" allowfullscreen></iframe>'
+        }
         document.getElementById('description').innerHTML += json.explanation;
         document.getElementById('title').innerHTML += json.title;
       });
