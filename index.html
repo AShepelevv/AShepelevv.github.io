@@ -5,12 +5,10 @@
   fetch("https://api.nasa.gov/planetary/apod?api_key=5YZIjXEfjKwIzzrsvf9vlNbS1kjeyge99lk2ENmO")
   .then((response) => response.json())
   .then((json) => {
-    const img = document.createElement("img");
-    img.src = json.url;
-    img.style.width = "100%";
-    const body = document.getElementById("body");
-    body.appendChild(img);
-    body.style.margin = 0;
+    const bodyStyle = document.getElementById("body").style;
+    bodyStyle.backgroundImage = "url('" + json.url + "')";
+    bodyStyle.backgroundSize = "cover";
+    bodyStyle.margin = 0;
   });
 </script>
 </html>
