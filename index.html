@@ -2,8 +2,8 @@
 <body id="body">
 </body>
 <script>
-  const apiKey = window.location.search;
-  fetch("https://api.nasa.gov/planetary/apod?api_key=" + apiKey)
+  const queryParams = new URLSearchParams(window.location.search);
+  fetch("https://api.nasa.gov/planetary/apod?api_key=" + queryParams.get("api_key"))
   .then((response) => response.json())
   .then((json) => {
     const bodyStyle = document.getElementById("body").style;
