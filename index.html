@@ -1,1 +1,14 @@
-Hello World
+<html>
+<body id="body">
+</body>
+<script>
+  fetch("https://api.nasa.gov/planetary/apod?api_key=5YZIjXEfjKwIzzrsvf9vlNbS1kjeyge99lk2ENmO")
+  .then((response) => response.json())
+  .then((json) => {
+    const img = document.createElement("img");
+    img.src = json.url;
+    img.style.width = "100%";
+    document.getElementById("body").appendChild(img);
+  });
+</script>
+</html>
