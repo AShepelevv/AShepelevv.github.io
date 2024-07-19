@@ -5,7 +5,10 @@
 </head>
 <body class="body">
 <a id="container" class="container" href="https://apod.nasa.gov/apod/" target="_blank">
-  <div class="bottom-sheet">
+  <div class="error">
+    <p id="error"></p>
+  </div>
+  <div id="bottom-sheet" class="bottom-sheet">
     <div id="title" class="title"></div>
     <div id="description" class="description"></div>
   </div>
@@ -13,16 +16,30 @@
 </body>
 <script>
   const queryParams = new URLSearchParams(window.location.search);
-  fetch('https://api.nasa.gov/planetary/apod?api_key=' + queryParams.get('api_key'))
-      .then((response) => response.json())
-      .then((json) => {
-        if (json.media_type === 'image') {
-          document.getElementById('container').style.backgroundImage = 'url(\'' + json.url + '\')';
-        } else {
-          document.getElementById('container').innerHTML += '<iframe width="100%" height="100%" src="' + json.url + '" allowfullscreen></iframe>'
-        }
-        document.getElementById('description').innerHTML += json.explanation;
-        document.getElementById('title').innerHTML += json.title;
-      });
+  const apiKey = queryParams.get('api_key')
+
+  const showError = (description) => {
+    document.getElementById('bottom-sheet').remove();
+    document.getElementById('error').innerHTML = description;
+  };
+
+  if (apiKey == null || apiKey === '') {
+    showError('API key was not specified');
+  } else {
+    fetch('https://api.nasa.gov/planetary/apod?api_key=' + queryParams.get('api_key')).then((response) => {
+      if (response.status !== 200) throw new Error('Whoops!');
+      return response.json();
+    }).then((json) => {
+      if (json.media_type === 'image') {
+        document.getElementById('container').style.backgroundImage = 'url(\'' + json.url + '\')';
+      } else {
+        document.getElementById('container').innerHTML += '<iframe width="100%" height="100%" src="' + json.url + '" allowfullscreen></iframe>';
+      }
+      document.getElementById('description').innerHTML += json.explanation;
+      document.getElementById('title').innerHTML += json.title;
+    }).catch(() => {
+      showError('Failed to request NASA API. Try to check your API key.');
+    });
+  }
 </script>
 </html>
