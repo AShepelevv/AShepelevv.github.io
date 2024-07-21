@@ -6,7 +6,9 @@
 <body class="body">
 <a id="container" class="container" href="https://apod.nasa.gov/apod/" target="_blank">
   <div class="error">
-    <p id="error"></p>
+    <p id="error">
+      <span id="loader" class="loader"></span>
+    </p>
   </div>
   <div id="bottom-sheet" class="bottom-sheet">
     <div id="title" class="title"></div>
@@ -31,7 +33,12 @@
       return response.json();
     }).then((json) => {
       if (json.media_type === 'image') {
-        document.getElementById('container').style.backgroundImage = 'url(\'' + json.url + '\')';
+        const backgroundImage = new Image();
+        backgroundImage.onload = () => {
+          document.getElementById('loader').remove()
+          document.getElementById('container').style.backgroundImage = 'url(' + backgroundImage.src + ')';
+        }
+        backgroundImage.src = json.url;
       } else {
         document.getElementById('container').innerHTML += '<iframe width="100%" height="100%" src="' + json.url + '" allowfullscreen></iframe>';
       }
