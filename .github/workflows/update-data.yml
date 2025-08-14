@@ -1,0 +1,29 @@
+name: Fetch APOD data from API
+
+on:
+  schedule:
+    # Runs every day at 06:00 UTC
+    - cron: "0 6 * * *"
+  workflow_dispatch:  # allow manual run
+
+jobs:
+  fetch-and-commit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Call API and save data
+        run: |
+          curl -s https://api.nasa.gov/planetary/apod?api_key=${{secrets.NASA_API_KEY}} > data.json
+
+      - name: Get current date
+        run: echo "TODAY=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
+        
+      - name: Commit and push if changed
+        run: |
+          git config --local user.email "actions@github.com"
+          git config --local user.name "GitHub Actions"
+          git add data.json
+          git diff --cached --quiet || git commit -m "Update data.json from NASA API, $TODAY"
+          git push
