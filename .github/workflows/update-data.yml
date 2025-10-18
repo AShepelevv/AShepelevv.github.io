@@ -2,8 +2,8 @@ name: Fetch APOD data from API
 
 on:
   schedule:
-    # Runs every day at 06:00 UTC
-    - cron: "0 6 * * *"
+    # Runs every day at 05:00 UTC
+    - cron: "0 5 * * *"
   workflow_dispatch:  # allow manual run
 
 jobs:
