@@ -15,17 +15,37 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Call API and save data
+      - name: Get Tg session
         run: |
-          curl -s https://api.nasa.gov/planetary/apod?api_key=${{secrets.NASA_API_KEY}} > data.json
+          echo "${{ secrets.TG_SESSION_BASE_64 }}" | base64 --decode > session.session
+
+      - name: Set up secrets
+        run: |
+          echo "API_ID=${{ secrets.TG_API_ID }}" >> $GITHUB_ENV
+          echo "API_HASH=${{ secrets.TG_API_HASH }}" >> $GITHUB_ENV
 
       - name: Get current date
         run: echo "TODAY=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'   # You can change to '3.10', '3.12', etc.
+
+      - name: Install dependencies
+        run: |
+          python3 -m pip install --upgrade pip
+          pip3 install -r requirements.txt
+
+      - name: Run Python script
+        run: |
+          python3 main.py
         
       - name: Commit and push if changed
         run: |
           git config --local user.email "actions@github.com"
           git config --local user.name "GitHub Actions"
           git add data.json
-          git diff --cached --quiet || git commit -m "Update data.json from NASA API, $TODAY"
+          git add image.jpg
+          git diff --cached --quiet || git commit -m "Update data.json from NASA APOD Tg Channel, $TODAY"
           git push
